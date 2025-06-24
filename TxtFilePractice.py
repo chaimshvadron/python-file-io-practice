@@ -50,7 +50,15 @@ def analizeTextFile(fileName):
     except FileNotFoundError:
         print(f"Error: The file '{fileName}' does not exist.")
 
-
+def add_word_count_to_lines(fileName, sumFileName):
+    try:
+        with open(fileName, 'r', encoding='utf-8') as orFile, open(sumFileName, 'w', encoding='utf-8') as sumFile:
+            for line in orFile:
+                word_count = len(line.strip().split())
+                new_line = f"{line.strip()} (word count: {word_count})\n"
+                sumFile.write(new_line)
+    except FileNotFoundError:
+        print(f"Error: The file '{fileName}' does not exist.")
 
 if __name__ == "__main__":
     fileName = "my_text.txt"
@@ -63,3 +71,5 @@ It is exciting
 And i am all 4 it"""
     WriteTxtFile(fileName, content)
     ReadTxtFileAndPrintLineNumbers(fileName)
+    analizeTextFile(fileName)
+    add_word_count_to_lines(fileName, "sum_" + fileName)
